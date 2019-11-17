@@ -1,0 +1,26 @@
+<div class="container">
+<h1>Sign Up</h1>
+<%= form_for @user do |f| %>
+  <% if flash[:register_errors]%>
+    <% flash[:register_errors].each do |msg| %>
+      <%= msg %> <br>
+    <% end %>
+  <% end %>
+  <div class="validate">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="validate">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="validate">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <%= f.submit("Sign Up",{class: "btn"}) %>
+<% end %>
+<p>Already have an account</p>
+<%= link_to "Log In", 'login' %>
+<div>
+

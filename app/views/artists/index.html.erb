@@ -1,0 +1,13 @@
+
+<% if current_user %>
+    <div class="container">
+        <h2>Hello</h2>
+    </div>
+<% else %>
+    <div class="container">
+        <h3>
+            <%= link_to "Sign Up", signup_path %> or
+            <%= link_to "Log In", login_path %>
+        </h3>
+    <div>
+<% end %>
