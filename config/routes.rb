@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # post '/sessions' => 'sessions#create'
   # post '/users' => 'users#create'
   get '/' => 'artists#index'
+  post '/' => 'artists#create'
 
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
@@ -11,4 +12,5 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions
+  resources :artists
 end

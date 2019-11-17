@@ -1,7 +1,18 @@
-
 <% if current_user %>
     <div class="container">
         <h2>Hello</h2>
+        <%= form_for @artist do |f| %>
+            <div class="validate">
+                <%= f.label :name %><br />
+                <%= f.text_field :name %>
+            </div>
+            <%= f.submit("Search",{class: "btn"}) %>
+        <% end %>
+
+        <h4>Previous Searches</h4>
+        <% @previous_artists.each do |artist| %>
+            <a class="previous" value="<%= artist.name %>" ><%= artist.name %></a>
+        <% end %>
     </div>
 <% else %>
     <div class="container">
@@ -11,3 +22,7 @@
         </h3>
     <div>
 <% end %>
+
+<script>
+    console.log("hello")
+</script>
