@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
           flash[:alert] = "Email or password is invalid"
           render "new"
         end
-      end
+    end
 
     def destroy
         session[:user_id] = nil
