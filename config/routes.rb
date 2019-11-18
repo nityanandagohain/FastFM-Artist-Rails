@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # get '/' => 'session#index'
   # post '/sessions' => 'sessions#create'
   # post '/users' => 'users#create'
-  get '/' => 'artists#index'
+  get '/' => 'artists#index', as: 'home'
   post '/' => 'artists#create'
 
   get 'signup', to: 'users#new', as: 'signup'

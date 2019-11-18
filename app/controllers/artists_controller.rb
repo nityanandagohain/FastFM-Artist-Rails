@@ -8,8 +8,6 @@ class ArtistsController < ApplicationController
         @artist = Artist.new
         user = User.find_by_id(current_user.id)
         @previous_artists =  user.artists
-
-        # get_artist_details()
     end
 
     def create

@@ -13,7 +13,7 @@
   <body>
     <nav>
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
+        <div class="brand-logo"><%= link_to "FastFm", home_path %></div>
         <% if current_user %>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><%= current_user.email %></li>
