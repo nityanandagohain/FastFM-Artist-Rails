@@ -2,8 +2,10 @@ require "net/http"
 require "json"
 
 class ArtistsController < ApplicationController
+    include ArtistsHelper
     before_action :authorize, only: [:create, :index, :new]
-
+    Uri = URI.parse("http://ws.audioscrobbler.com/2.0/")
+    
     def index
         @artist = Artist.new
         user = User.find_by_id(current_user.id)
@@ -19,30 +21,11 @@ class ArtistsController < ApplicationController
             puts "already present in database"
         end
 
-        @artist_details = get_artist_details(@artist.name)
+        @artist_details = {}
+        @artist_details["artist"] = helpers.getArtistInfo(Uri, @artist.name)
+        @artist_details["toptracks"] = helpers.getTopTracks(Uri, @artist.name)
 
         render "result"
-    end
-
-    def get_artist_details(name)
-        # get artist info
-        result = {}
-        url = URI.parse("http://ws.audioscrobbler.com/2.0/?format=json&api_key=#{ENV["LASTFM_KEY"]}&method=artist.getInfo&artist=#{name}")
-        res = Net::HTTP.start(url.host, url.port) { |http|
-            http.request(Net::HTTP::Get.new(url.to_s))
-        }
-        data = JSON.parse(res.body)
-        result["artist"] = data["artist"]
-
-        # get top tracks of the artist
-        url = URI.parse("http://ws.audioscrobbler.com/2.0/?format=json&api_key=#{ENV["LASTFM_KEY"]}&method=artist.gettoptracks&artist=#{name}&limit=10")
-        res = Net::HTTP.start(url.host, url.port) { |http|
-            http.request(Net::HTTP::Get.new(url.to_s))
-        }
-        data = JSON.parse(res.body)
-        result["toptracks"] = data["toptracks"]
-        # puts result["toptracks"]
-        return result
     end
 
     
