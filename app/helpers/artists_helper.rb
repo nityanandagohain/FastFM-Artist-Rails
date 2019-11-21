@@ -3,6 +3,7 @@ require "json"
 
 module ArtistsHelper
     def getArtistInfo(uri, name)
+        # query params for the api request
         params = { :format => 'json', :api_key => ENV["LASTFM_KEY"],:method => 'artist.getinfo', :artist => name }
         uri.query = URI.encode_www_form(params)
         begin
@@ -19,6 +20,7 @@ module ArtistsHelper
     end
 
     def getTopTracks(uri, name)
+        # query params for the api request
         params = { :format => 'json', :api_key => ENV["LASTFM_KEY"],:method => 'artist.gettoptracks', :artist => name, :limit => 10 }
         uri.query = URI.encode_www_form(params)
         begin
