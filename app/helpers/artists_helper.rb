@@ -3,7 +3,7 @@ require "json"
 
 module ArtistsHelper
     def getArtistInfo(uri, name)
-        params = { :format => 'json', :api_key => ENV["LASTFM_KEY"],:method => 'artist.getInfo', :artist => name }
+        params = { :format => 'json', :api_key => ENV["LASTFM_KEY"],:method => 'artist.getinfo', :artist => name }
         uri.query = URI.encode_www_form(params)
         begin
             res = Net::HTTP.get_response(uri)
@@ -11,8 +11,9 @@ module ArtistsHelper
                 data = JSON.parse(res.body)
                 return data["artist"]
             end
-        rescue
+        rescue => exception
             puts "Exception Occured while fetching from API"
+            puts exception.backtrace
         end
         return nil
     end
@@ -26,8 +27,9 @@ module ArtistsHelper
                 data = JSON.parse(res.body)
                 return data["toptracks"] 
             end
-        rescue
+        rescue => exception
             puts "Exception Occured while fetching from API"
+            puts exception.backtrace
         end
         return nil
     end
