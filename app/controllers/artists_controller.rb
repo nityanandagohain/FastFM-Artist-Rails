@@ -4,7 +4,6 @@ require "json"
 class ArtistsController < ApplicationController
     include ArtistsHelper
     before_action :authorize, only: [:create, :index, :new]
-    Uri = URI.parse("http://ws.audioscrobbler.com/2.0/")
     
     def index
         @artist = Artist.new
@@ -24,8 +23,8 @@ class ArtistsController < ApplicationController
 
         # Fastfm api is called for the artist details and toptracks
         @artist_details = {}
-        @artist_details["artist"] = helpers.getArtistInfo(Uri, @artist.name)
-        @artist_details["toptracks"] = helpers.getTopTracks(Uri, @artist.name)
+        @artist_details["artist"] = helpers.get_artist_info(@artist.name)
+        @artist_details["toptracks"] = helpers.get_top_tracks(@artist.name)
 
         render "result"
     end
